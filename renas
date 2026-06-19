@@ -946,6 +946,18 @@ refactor_bootfs() {
     process_msg "(5/7) Refactoring BOOTFS files."
     cd "${tag_bootfs}"
 
+    # 自定义注入 "meson-gxm-b1s.dtb" 并进行瘦身清理
+    if [[ "${board}" == "s912-b1s" ]]; then
+        echo -e "${INFO} Slimming down image for s912-b1s..."
+        
+        # 1. 强行拷贝外部 dtb
+        mkdir -p dtb/amlogic/
+        cp -f "${current_path}/my_dtb/meson-gxm-b1s.dtb" "dtb/amlogic/"
+        
+        # 2. 删掉官方内核包里其他的无关 dtb
+        find dtb/amlogic/ -maxdepth 1 -name "*.dtb" ! -name "meson-gxm-b1s*.dtb" -delete 2>/dev/null
+    fi
+
     # Process Amlogic boot partition files
     [[ "${PLATFORM}" == "amlogic" && "${need_overload}" == "yes" ]] && {
         # Add u-boot.ext for Amlogic 5.10 kernel
