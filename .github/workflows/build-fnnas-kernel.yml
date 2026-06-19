@@ -178,7 +178,7 @@ jobs:
           echo "status=success" >> ${GITHUB_OUTPUT}
 
       - name: Compile the FnNAS kernel
-        uses: ophub/fnnas@main
+        uses: ./.
         if: ${{ steps.down.outputs.status == 'success' && !cancelled() }}
         with:
           build_target: kernel
