@@ -952,7 +952,7 @@ refactor_bootfs() {
         
         # 1. 强行拷贝外部 dtb
         mkdir -p dtb/amlogic/
-        cp -f "${current_path}/my_dtb/meson-gxm-b1s.dtb" "dtb/amlogic/"
+        cp -f "${current_path}/my_dtb/meson-gxm-b1s-3g.dtb" "dtb/amlogic/"
         
         # 2. 删掉官方内核包里其他的无关 dtb
         find dtb/amlogic/ -maxdepth 1 -name "*.dtb" ! -name "meson-gxm-b1s*.dtb" -delete 2>/dev/null
